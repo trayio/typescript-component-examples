@@ -10,9 +10,17 @@ export const AddTaskForm: React.FC<AddTaskFormProps> = ({ onAddTask }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // Focus input on mount only
     inputRef.current?.focus();
-  }, []); // Empty array - only runs on mount
+  }, []);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setInputValue('');
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
